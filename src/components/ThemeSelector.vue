@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { Sun, Moon, Palette, Heart } from "lucide-vue-next";
+import { Sun, Moon, Palette, Heart, Image, X } from "lucide-vue-next";
 import type { Theme } from "../composables/useTheme";
 
 const props = defineProps<{
     currentTheme: Theme;
+    hasBackground: boolean;
 }>();
 
 const emit = defineEmits<{
     changeTheme: [theme: Theme];
+    uploadImage: [imageDataUrl: string];
+    clearImage: [];
 }>();
 
 const isOpen = ref(false);
 
-const themes: { name: Theme; icon: any; color: string }[] = [
+const themes: { name: Exclude<Theme, "Custom">; icon: any; color: string }[] = [
     { name: "Warm", icon: Sun, color: "bg-rose-500" },
     { name: "Purple", icon: Moon, color: "bg-purple-500" },
     { name: "Dark", icon: Palette, color: "bg-slate-700" },
@@ -28,10 +31,51 @@ function selectTheme(theme: Theme) {
     emit("changeTheme", theme);
     isOpen.value = false;
 }
+
+const fileInput = ref<HTMLInputElement | null>(null);
+
+function triggerFileInput() {
+    fileInput.value?.click();
+    isOpen.value = false;
+}
+
+function handleFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
+
+    if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const result = e.target?.result as string;
+            if (result) {
+                emit("uploadImage", result);
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Reset input so the same file can be selected again
+    if (target) {
+        target.value = "";
+    }
+}
+
+function handleClearImage() {
+    emit("clearImage");
+    isOpen.value = false;
+}
 </script>
 
 <template>
     <div class="fixed bottom-8 right-8 z-50">
+        <input
+            ref="fileInput"
+            type="file"
+            accept="image/*"
+            @change="handleFileChange"
+            class="hidden"
+        />
+
         <!-- Theme option buttons (appear when open) -->
         <div v-if="isOpen" class="flex flex-col-reverse gap-3 mb-3 items-end">
             <button
@@ -53,6 +97,41 @@ function selectTheme(theme: Theme) {
                 type="button"
             >
                 <component :is="theme.icon" :size="20" class="text-white" />
+            </button>
+
+            <!-- Clear background button -->
+            <button
+                v-if="props.hasBackground"
+                @click.stop="handleClearImage"
+                :class="[
+                    'w-12 h-12 rounded-full shadow-2xl backdrop-blur-xl',
+                    'flex items-center justify-center',
+                    'transition-all duration-200 hover:scale-110 active:scale-95',
+                    'border-2 border-white/30',
+                    'bg-red-500',
+                ]"
+                title="Clear background image"
+                :aria-label="'Clear background image'"
+                type="button"
+            >
+                <X :size="20" class="text-white" />
+            </button>
+
+            <!-- Upload background button -->
+            <button
+                @click.stop="triggerFileInput"
+                :class="[
+                    'w-12 h-12 rounded-full shadow-2xl backdrop-blur-xl',
+                    'flex items-center justify-center',
+                    'transition-all duration-200 hover:scale-110 active:scale-95',
+                    'border-2 border-white/30',
+                    'bg-blue-500',
+                ]"
+                title="Upload background image"
+                :aria-label="'Upload background image'"
+                type="button"
+            >
+                <Image :size="20" class="text-white" />
             </button>
         </div>
 

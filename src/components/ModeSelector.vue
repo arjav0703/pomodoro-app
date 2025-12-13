@@ -12,7 +12,7 @@ defineEmits<{
 </script>
 
 <template>
-    <div class="dropdown dropdown-left text-white absolute top-5 right-5">
+    <div class="dropdown dropdown-left text-white fixed top-5 right-5">
         <div
             tabindex="0"
             role="button"

@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { save_to_store, get_from_store } from "./tauri";
 
-export type Theme = "Warm" | "Purple" | "Dark" | "Pink";
+export type Theme = "Warm" | "Purple" | "Dark" | "Pink" | "Custom";
 
 const themeColors = {
   Warm: {
@@ -28,6 +28,7 @@ const themeColors = {
 
 export function useTheme() {
   const currentTheme = ref<Theme>("Warm");
+  const backgroundImage = ref<string | null>(null);
 
   // Initialize from store asynchronously
   get_from_store("theme").then((val) => {
@@ -36,18 +37,51 @@ export function useTheme() {
     }
   });
 
+  get_from_store("backgroundImage").then((val) => {
+    if (val !== undefined && typeof val === "string") {
+      backgroundImage.value = val;
+      if (val) {
+        currentTheme.value = "Custom";
+      }
+    }
+  });
+
   function getThemeColor(mode: "pomodoro" | "shortBreak" | "longBreak") {
+    if (currentTheme.value === "Custom") {
+      return "bg-transparent";
+    }
     return themeColors[currentTheme.value][mode];
   }
 
   function setTheme(theme: Theme) {
     currentTheme.value = theme;
     save_to_store("theme", theme);
+    if (theme !== "Custom") {
+      backgroundImage.value = null;
+      save_to_store("backgroundImage", "");
+    }
+  }
+
+  function setBackgroundImage(imageDataUrl: string) {
+    backgroundImage.value = imageDataUrl;
+    currentTheme.value = "Custom";
+    save_to_store("backgroundImage", imageDataUrl);
+    save_to_store("theme", "Custom");
+  }
+
+  function clearBackgroundImage() {
+    backgroundImage.value = null;
+    currentTheme.value = "Warm";
+    save_to_store("backgroundImage", "");
+    save_to_store("theme", "Warm");
   }
 
   return {
     currentTheme,
+    backgroundImage,
     getThemeColor,
     setTheme,
+    setBackgroundImage,
+    clearBackgroundImage,
   };
 }
