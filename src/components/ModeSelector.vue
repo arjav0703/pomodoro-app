@@ -13,7 +13,7 @@ defineEmits<{
 
 <template>
     <div class="dropdown dropdown-left text-black absolute top-5 right-5">
-        <div tabindex="0" role="button" class="rounded-full bg-white border-2 px-2 py-2 btn w-auto h-auto text-black"><Clock :size="40" :stroke-width="1" /></div>
+        <div tabindex="0" role="button" class="rounded-full bg-white border-2 px-2 py-2 btn w-auto h-auto text-black"><Clock :size="40" :stroke-width="2" /></div>
           <ul tabindex="-1" class="dropdown-content menu bg-white rounded-box z-1 w-52 p-2 mx-4 ">
 <li>
 
