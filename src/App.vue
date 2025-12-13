@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useTimer } from "./composables/useTimer";
+import { useTheme } from "./composables/useTheme";
 import TimerDisplay from "./components/TimerDisplay.vue";
 import TimerControls from "./components/TimerControls.vue";
 import ModeSelector from "./components/ModeSelector.vue";
+import ThemeSelector from "./components/ThemeSelector.vue";
 
 const {
     mode,
@@ -11,22 +13,20 @@ const {
     formattedMinutes,
     formattedSeconds,
     modeTitle,
-    backgroundColor,
     startTimer,
     pauseTimer,
     resetTimer,
     setMode,
-}
-= useTimer();
+} = useTimer();
 
-import {save_to_store} from "./composables/tauri";
+const { currentTheme, getThemeColor, setTheme } = useTheme();
 </script>
 
 <template>
     <div
         :class="[
             'min-h-screen flex flex-col items-center justify-center transition-colors duration-500 p-8',
-            backgroundColor,
+            getThemeColor(mode),
         ]"
     >
         <div class="text-center w-full max-w-4xl">
@@ -56,5 +56,8 @@ import {save_to_store} from "./composables/tauri";
 
             <ModeSelector :current-mode="mode" @change-mode="setMode" />
         </div>
+
+        <!-- Theme selector outside container for proper fixed positioning -->
+        <ThemeSelector :current-theme="currentTheme" @change-theme="setTheme" />
     </div>
 </template>
