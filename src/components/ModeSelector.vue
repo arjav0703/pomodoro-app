@@ -1,6 +1,6 @@
 <script setup lang="ts">
 export type TimerMode = "pomodoro" | "shortBreak" | "longBreak";
-import { Clock } from "lucide-vue-next";
+import { Clock, Settings } from "lucide-vue-next";
 
 defineProps<{
     currentMode: TimerMode;
@@ -8,6 +8,7 @@ defineProps<{
 
 defineEmits<{
     changeMode: [mode: TimerMode];
+    openSettings: [];
 }>();
 </script>
 
@@ -61,6 +62,15 @@ defineEmits<{
                     ]"
                 >
                     Long Break
+                </button>
+            </li>
+            <li class="border-t border-white/20 mt-2 pt-2">
+                <button
+                    @click="$emit('openSettings')"
+                    class="px-4 py-2 rounded-lg font-bold text-md active:scale-95 text-white hover:bg-white/10 flex items-center gap-2"
+                >
+                    <Settings :size="18" />
+                    Settings
                 </button>
             </li>
         </ul>
