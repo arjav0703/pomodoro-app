@@ -25,7 +25,7 @@ const { currentTheme, getThemeColor, setTheme } = useTheme();
 <template>
     <div
         :class="[
-            'min-h-screen flex flex-col items-center justify-center transition-colors duration-500 p-8',
+            'min-h-screen flex flex-col items-center justify-center transition-colors duration-500 p-8 text-white',
             getThemeColor(mode),
         ]"
     >
@@ -37,9 +37,9 @@ const { currentTheme, getThemeColor, setTheme } = useTheme();
             </h1>
 
             <div
-                class="text-white text-xl md:text-2xl mb-8 opacity-90 drop-shadow"
+                class="text-white text-xl md:text-2xl mb-8 "
             >
-                🍅 Pomodoros completed: {{ pomodorosCompleted }}
+                🍅: {{ pomodorosCompleted }}
             </div>
 
             <TimerDisplay

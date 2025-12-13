@@ -42,10 +42,9 @@ function selectTheme(theme: Theme) {
                     'w-12 h-12 rounded-full shadow-lg',
                     'flex items-center justify-center',
                     'transition-all duration-200 hover:scale-110 active:scale-95',
-                    'border-2 border-white',
                     theme.color,
                     props.currentTheme === theme.name
-                        ? 'ring-4 ring-white ring-opacity-50'
+                        ? 'ring-2 ring-white ring-opacity-50'
                         : '',
                 ]"
                 :title="`${theme.name} theme`"
