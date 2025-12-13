@@ -12,7 +12,6 @@ const {
     pomodorosCompleted,
     formattedMinutes,
     formattedSeconds,
-    modeTitle,
     startTimer,
     pauseTimer,
     resetTimer,
@@ -30,16 +29,10 @@ const { currentTheme, getThemeColor, setTheme } = useTheme();
         ]"
     >
         <div class="text-center w-full max-w-4xl">
-            <h1
-                class="text-4xl md:text-5xl font-bold text-white mb-6 tracking-wide drop-shadow-lg"
-            >
-                {{ modeTitle }}
-            </h1>
-
             <div
-                class="text-white text-xl md:text-2xl mb-8 "
+                class="text-white text-xl md:text-2xl mb-8 backdrop-blur-xl bg-white/10 border-white/30 border-2 rounded-2xl px-6 py-3 inline-block shadow-2xl"
             >
-                🍅: {{ pomodorosCompleted }}
+                🍅 {{ pomodorosCompleted }}
             </div>
 
             <TimerDisplay

@@ -39,13 +39,14 @@ function selectTheme(theme: Theme) {
                 :key="theme.name"
                 @click.stop="selectTheme(theme.name)"
                 :class="[
-                    'w-12 h-12 rounded-full shadow-lg',
+                    'w-12 h-12 rounded-full shadow-2xl backdrop-blur-xl',
                     'flex items-center justify-center',
                     'transition-all duration-200 hover:scale-110 active:scale-95',
+                    'border-2 border-white/30',
                     theme.color,
                     props.currentTheme === theme.name
-                        ? 'ring-2 ring-white ring-opacity-50'
-                        : '',
+                        ? 'ring-4 ring-white ring-opacity-60'
+                        : 'opacity-90',
                 ]"
                 :title="`${theme.name} theme`"
                 :aria-label="`Select ${theme.name} theme`"
@@ -59,11 +60,11 @@ function selectTheme(theme: Theme) {
         <button
             @click.stop="toggleMenu"
             :class="[
-                'w-14 h-14 rounded-full shadow-xl',
+                'w-14 h-14 rounded-full shadow-2xl',
                 'flex items-center justify-center',
                 'transition-all duration-200 hover:scale-110 active:scale-95',
-                'bg-white text-gray-800',
-                'border-2 border-gray-200',
+                'backdrop-blur-xl bg-white/90 text-gray-800',
+                'border-2 border-white/50',
             ]"
             :style="{
                 transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',

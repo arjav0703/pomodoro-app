@@ -15,20 +15,20 @@ defineEmits<{
         <button
             v-if="!isRunning"
             @click="$emit('start')"
-            class="bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all shadow-lg hover:scale-105 active:scale-95"
+            class="backdrop-blur-xl bg-white/20 text-white border-2 border-white/30 px-8 py-4 rounded-xl font-bold text-xl hover:bg-white/30 transition-all shadow-2xl hover:scale-105 active:scale-95"
         >
             ▶ Start
         </button>
         <button
             v-else
             @click="$emit('pause')"
-            class="bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all shadow-lg hover:scale-105 active:scale-95"
+            class="backdrop-blur-xl bg-white/20 text-white border-2 border-white/30 px-8 py-4 rounded-xl font-bold text-xl hover:bg-white/30 transition-all shadow-2xl hover:scale-105 active:scale-95"
         >
             ⏸ Pause
         </button>
         <button
             @click="$emit('reset')"
-            class="bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all shadow-lg hover:scale-105 active:scale-95"
+            class="backdrop-blur-xl bg-white/20 text-white border-2 border-white/30 px-8 py-4 rounded-xl font-bold text-xl hover:bg-white/30 transition-all shadow-2xl hover:scale-105 active:scale-95"
         >
             ↻ Reset
         </button>

@@ -35,16 +35,6 @@ export function useTimer() {
     String(seconds.value).padStart(2, "0"),
   );
 
-  const modeTitle = computed(() => {
-    switch (mode.value) {
-      case "pomodoro":
-        return "Focus Time";
-      case "shortBreak":
-        return "Short Break";
-      case "longBreak":
-        return "Long Break";
-    }
-  });
 
   const backgroundColor = computed(() => {
     switch (mode.value) {
@@ -144,7 +134,6 @@ export function useTimer() {
     seconds,
     formattedMinutes,
     formattedSeconds,
-    modeTitle,
     backgroundColor,
     startTimer,
     pauseTimer,

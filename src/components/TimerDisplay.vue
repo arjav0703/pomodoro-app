@@ -7,7 +7,7 @@ defineProps<{
 
 <template>
     <div
-        class="rounded-3xl p-8 md:p-16 mb-8"
+        class="rounded-3xl p-8 md:p-16 mb-8 backdrop-blur-xl bg-white/10 border-white/30 border-2 shadow-2xl"
     >
         <div class="timer-display">
             {{ minutes }}<span class="colon">:</span>{{ seconds }}
