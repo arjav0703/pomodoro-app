@@ -1,4 +1,5 @@
 import { ref, computed, onUnmounted } from "vue";
+import { save_to_store, get_from_store } from "./tauri";
 
 export type TimerMode = "pomodoro" | "shortBreak" | "longBreak";
 
@@ -11,6 +12,15 @@ export function useTimer() {
   const timeLeft = ref(POMODORO_TIME);
   const isRunning = ref(false);
   const pomodorosCompleted = ref(0);
+
+  // Initialize from store asynchronously
+  get_from_store("pomodorosCompleted").then((val) => {
+    if (val !== undefined && typeof val === "object" && "value" in val) {
+      pomodorosCompleted.value = val.value;
+    } else if (val !== undefined && typeof val === "number") {
+      pomodorosCompleted.value = val;
+    }
+  });
 
   let intervalId: number | null = null;
 
@@ -88,6 +98,7 @@ export function useTimer() {
 
     if (mode.value === "pomodoro") {
       pomodorosCompleted.value++;
+      save_to_store("pomodorosCompleted", pomodorosCompleted.value);
 
       // After 4 pomodoros, take a long break
       if (pomodorosCompleted.value % 4 === 0) {

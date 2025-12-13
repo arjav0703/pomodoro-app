@@ -16,7 +16,10 @@ const {
     pauseTimer,
     resetTimer,
     setMode,
-} = useTimer();
+}
+= useTimer();
+
+import {save_to_store} from "./composables/tauri";
 </script>
 
 <template>
