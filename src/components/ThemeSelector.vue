@@ -19,7 +19,7 @@ const isOpen = ref(false);
 const themes: { name: Exclude<Theme, "Custom">; icon: any; color: string }[] = [
     { name: "Warm", icon: Sun, color: "bg-rose-500" },
     { name: "Purple", icon: Moon, color: "bg-purple-500" },
-    { name: "Dark", icon: Palette, color: "bg-slate-700" },
+    { name: "Dark", icon: Palette, color: "bg-slate-900" },
     { name: "Pink", icon: Heart, color: "bg-pink-500" },
 ];
 

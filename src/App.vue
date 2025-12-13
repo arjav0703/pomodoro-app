@@ -45,15 +45,9 @@ const {
         <!-- Dark overlay for better text contrast -->
         <div v-if="backgroundImage" class="absolute inset-0 bg-black/40"></div>
 
-        <div
-            class="relative z-10 w-full flex flex-col items-center justify-center"
-        >
-            <div class="text-center w-full max-w-4xl">
-                <div
-                    class="text-white text-xl md:text-2xl mb-8 backdrop-blur-xl bg-white/10 border-white/30 border-2 rounded-2xl px-6 py-3 inline-block shadow-2xl"
-                >
-                    🍅 {{ pomodorosCompleted }}
-                </div>
+        <!-- Content wrapper with relative positioning -->
+        <div class="relative z-10 flex flex-col items-center justify-center">
+            <div class="text-center">
 
                 <TimerDisplay
                     :minutes="formattedMinutes"
@@ -66,10 +60,17 @@ const {
                     @pause="pauseTimer"
                     @reset="resetTimer"
                 />
-
-                <ModeSelector :current-mode="mode" @change-mode="setMode" />
             </div>
         </div>
+
+                        <div
+                    class="fixed top-5 right-25 text-white text-xl md:text-2xl backdrop-blur-xl bg-white/10 border-white/30 border-2 rounded-3xl px-3 py-3 shadow-2xl"
+                >
+                    🍅 {{ pomodorosCompleted }}
+                </div>
+
+
+        <ModeSelector :current-mode="mode" @change-mode="setMode" />
 
         <ThemeSelector
             :current-theme="currentTheme"

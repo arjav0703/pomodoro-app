@@ -7,7 +7,7 @@ defineProps<{
 
 <template>
     <div
-        class="rounded-3xl p-8 md:p-16 mb-8 backdrop-blur-xl bg-white/10 border-white/30 border-2 shadow-2xl"
+        class="rounded-3xl p-8 md:p-16 mb-8 backdrop-blur-xl w-fit bg-white/10 border-white/30 border-2 shadow-2xl"
     >
         <div class="timer-display">
             {{ minutes }}<span class="colon">:</span>{{ seconds }}
@@ -17,7 +17,7 @@ defineProps<{
 
 <style scoped>
 .timer-display {
-    font-size: 120px;
+    font-size: 130px;
     font-weight: 900;
     line-height: 1;
     letter-spacing: -0.02em;
@@ -37,9 +37,9 @@ defineProps<{
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1324px) {
     .timer-display {
-        font-size: 200px;
+        font-size: 380px;
     }
 }
 

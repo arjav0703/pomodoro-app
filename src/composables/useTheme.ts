@@ -5,23 +5,23 @@ export type Theme = "Warm" | "Purple" | "Dark" | "Pink" | "Custom";
 
 const themeColors = {
   Warm: {
-    pomodoro: "bg-rose-600",
+    pomodoro: "bg-amber-600",
     shortBreak: "bg-orange-500",
     longBreak: "bg-amber-500",
   },
   Purple: {
-    pomodoro: "bg-purple-600",
-    shortBreak: "bg-indigo-500",
-    longBreak: "bg-violet-500",
+    pomodoro: "bg-violet-500",
+    shortBreak: "bg-violet-400",
+    longBreak: "bg-violet-300",
   },
   Dark: {
-    pomodoro: "bg-slate-800",
-    shortBreak: "bg-slate-700",
-    longBreak: "bg-slate-600",
+    pomodoro: "bg-black",
+    shortBreak: "bg-black-900",
+    longBreak: "bg-black-800",
   },
   Pink: {
     pomodoro: "bg-pink-600",
-    shortBreak: "bg-fuchsia-500",
+    shortBreak: "bg-rose-500",
     longBreak: "bg-rose-400",
   },
 };
