@@ -34,9 +34,9 @@ watch(
 
 function handleSave() {
     // Validate inputs
-    const pomodoro = Math.max(1, Math.min(120, pomodoroMinutes.value));
+    const pomodoro = Math.max(1, pomodoroMinutes.value);
     const shortBreak = Math.max(1, Math.min(60, shortBreakMinutes.value));
-    const longBreak = Math.max(1, Math.min(120, longBreakMinutes.value));
+    const longBreak = Math.max(1, longBreakMinutes.value);
 
     emit("save", pomodoro, shortBreak, longBreak);
     emit("close");
@@ -95,7 +95,6 @@ function handleBackdropClick(event: MouseEvent) {
                                 v-model.number="pomodoroMinutes"
                                 type="number"
                                 min="1"
-                                max="120"
                                 class="w-full px-4 py-3 rounded-xl border-2 border-white/30 backdrop-blur-xl bg-white/10 focus:border-white/50 focus:bg-white/20 focus:outline-none text-white font-semibold text-lg"
                             />
                         </div>
@@ -129,7 +128,6 @@ function handleBackdropClick(event: MouseEvent) {
                                 v-model.number="longBreakMinutes"
                                 type="number"
                                 min="1"
-                                max="120"
                                 class="w-full px-4 py-3 rounded-xl border-2 border-white/30 backdrop-blur-xl bg-white/10 focus:border-white/50 focus:bg-white/20 focus:outline-none text-white font-semibold text-lg"
                             />
                         </div>
