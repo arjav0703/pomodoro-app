@@ -37,7 +37,7 @@ jobs:
           node-version: lts/*
           # cache: 'pnpm' # Set this to npm, yarn or pnpm.
 
-      - name: Install the pnpm executable:
+      - name: Install the pnpm executable
         run: npm install -g pnpm
 
       - name: install Rust stable
