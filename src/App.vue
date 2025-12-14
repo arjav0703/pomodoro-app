@@ -7,6 +7,7 @@ import TimerControls from "./components/TimerControls.vue";
 import ModeSelector from "./components/ModeSelector.vue";
 import ThemeSelector from "./components/ThemeSelector.vue";
 import SettingsModal from "./components/SettingsModal.vue";
+import CharacterPopup from "./components/CharacterPopup.vue";
 
 const {
     mode,
@@ -22,6 +23,9 @@ const {
     resetTimer,
     setMode,
     setTimerDurations,
+    popupEvent,
+    showPopup,
+    closePopup,
 } = useTimer();
 
 const {
@@ -110,6 +114,12 @@ function saveSettings(pomodoro: number, shortBreak: number, longBreak: number) {
             :long-break-duration="longBreakDuration"
             @close="closeSettings"
             @save="saveSettings"
+        />
+
+        <CharacterPopup
+            :show="showPopup"
+            :event="popupEvent ?? undefined"
+            @close="closePopup"
         />
     </div>
 </template>

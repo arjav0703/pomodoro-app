@@ -3,6 +3,11 @@ import { save_to_store, get_from_store } from "./tauri";
 
 export type TimerMode = "pomodoro" | "shortBreak" | "longBreak";
 
+export interface PopupEvent {
+  type: "timerStart" | "timerEnd" | "breakStart" | "breakEnd";
+  mode: TimerMode;
+}
+
 const DEFAULT_POMODORO_TIME = 25;
 const DEFAULT_SHORT_BREAK_TIME = 5;
 const DEFAULT_LONG_BREAK_TIME = 15;
@@ -18,6 +23,10 @@ export function useTimer() {
   const longBreakDuration = ref(DEFAULT_LONG_BREAK_TIME);
 
   const timeLeft = ref(pomodoroDuration.value * 60);
+
+  // Popup event tracking
+  const popupEvent = ref<PopupEvent | null>(null);
+  const showPopup = ref(false);
 
   // Initialize from store asynchronously
   get_from_store("pomodorosCompleted").then((val) => {
@@ -83,6 +92,11 @@ export function useTimer() {
     if (isRunning.value) return;
 
     isRunning.value = true;
+
+    // Trigger popup when timer starts
+    const eventType = mode.value === "pomodoro" ? "timerStart" : "breakStart";
+    triggerPopup(eventType, mode.value);
+
     intervalId = setInterval(() => {
       if (timeLeft.value > 0) {
         timeLeft.value--;
@@ -117,6 +131,10 @@ export function useTimer() {
 
   function completeTimer() {
     pauseTimer();
+
+    // Trigger popup when timer ends
+    const eventType = mode.value === "pomodoro" ? "timerEnd" : "breakEnd";
+    triggerPopup(eventType, mode.value);
 
     if (mode.value === "pomodoro") {
       pomodorosCompleted.value++;
@@ -169,6 +187,16 @@ export function useTimer() {
     }
   }
 
+  function triggerPopup(type: PopupEvent["type"], timerMode: TimerMode) {
+    popupEvent.value = { type, mode: timerMode };
+    showPopup.value = true;
+  }
+
+  function closePopup() {
+    showPopup.value = false;
+    popupEvent.value = null;
+  }
+
   // Cleanup on unmount
   onUnmounted(() => {
     if (intervalId !== null) {
@@ -194,5 +222,8 @@ export function useTimer() {
     resetTimer,
     setMode,
     setTimerDurations,
+    popupEvent,
+    showPopup,
+    closePopup,
   };
 }
